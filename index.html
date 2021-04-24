@@ -6,10 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css/foundation.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <title>Vagabundos App</title>
 </head>
 
 <body>
+  <div id="spinner" class="loader"></div>
+
     <div class="grid-y medium-grid-frame">
         <div class="cell shrink header medium-cell-block-container">
           <h1>Vagabundos App</h1>
@@ -18,8 +21,11 @@
         <div class="cell medium-auto medium-cell-block-container ">
           <div class="grid-x grid-padding-x medium-cell-block-y">
             <div class="cell small-2">
-              <h5>Search city</h5>
-                <input class="city-search" type="text" placeholder="Type your city">
+              <h5>Search Flights</h5>
+                <input class="origin-city" style="text-transform: uppercase" type="text" placeholder="Origin City">
+                <input class="destination-city" style="text-transform: uppercase" type="text" placeholder="Destination City">
+                <input class="depature-date" type="date" placeholder="Departure Date">
+                <input class="max-flights" type="text" onkeypress="return isNumber(event)" placeholder="Max Flights">
                 <button type="button" class="button primary expanded  city-button">Search</button>
                 <div class="card" style="width: 100%;">
                     <div class="card-divider">
@@ -27,21 +33,56 @@
                     </div>
                   </div>
             </div>
-
             
             <div class="cell auto medium-cell-block-y">
               <h5>Results </h5>
-              <div id="cards">
-                
-              </div>
-                
-
-
+              <div class="card" style="width: 100%;">
+                <div id="origin-destination" class="card-divider">                      
+                </div>
+                <div class="card-section">
+                  <ul id="flights" class="accordion" data-accordion>
+                    <li class="accordion-item" data-accordion-item>
+                      <a href="#" class="accordion-title">Flights</a>
+                      <div id="flights-content" class="accordion-content" data-tab-content>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                </div>                     
             </div>
           </div>
         </div>
       </div>
-      <div id="id01"></div>
+
+      
+
+      <!-- <div id="cards">
+                
+      </div>   -->
+      <!-- Accordion -->
+<!-- <ul id="cities" class="accordion" data-accordion>
+  <li class="accordion-item is-active" data-accordion-item>
+  <a href="#" class="accordion-title">Accordion 1</a>
+  <div class="accordion-content" data-tab-content>
+    Panel 1. I'm open because I'm loaded that way, but you can't close me
+  </div>
+</li>
+<li class="accordion-item" data-accordion-item>
+  <a href="#" class="accordion-title">Accordion 2, you can't open me.</a>
+  <div class="accordion-content" data-tab-content>
+    Panel 2. Lorem ipsum dolor
+  </div>
+</li>
+<li class="accordion-item" data-accordion-item>
+  <a href="#" class="accordion-title">Accordion 3, you can't open me.</a>
+  <div class="accordion-content" data-tab-content>
+    Panel 3. Lorem ipsum dolor
+  </div>
+</li>  
+
+
+</ul> -->
+
      
       <script src="assets/js/vendor.js"></script>
       <script src="assets/js/foundation.js"></script>
@@ -59,28 +100,6 @@
 </div> -->
 
 
-<!-- Accordion -->
-<!-- <ul id="cities" class="accordion" data-accordion>
-</ul> -->
-
-      <!-- <li class="accordion-item is-active" data-accordion-item>
-        <a href="#" class="accordion-title">Accordion 1</a>
-        <div class="accordion-content" data-tab-content>
-          Panel 1. I'm open because I'm loaded that way, but you can't close me
-        </div>
-      </li>
-      <li class="accordion-item" data-accordion-item>
-        <a href="#" class="accordion-title">Accordion 2, you can't open me.</a>
-        <div class="accordion-content" data-tab-content>
-          Panel 2. Lorem ipsum dolor
-        </div>
-      </li>
-      <li class="accordion-item" data-accordion-item>
-        <a href="#" class="accordion-title">Accordion 3, you can't open me.</a>
-        <div class="accordion-content" data-tab-content>
-          Panel 3. Lorem ipsum dolor
-        </div>
-      </li> -->
 
 </body>
 
