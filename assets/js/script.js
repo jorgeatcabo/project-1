@@ -23,18 +23,18 @@ function searchFlightOffers(origin,destination,max,departureDate){
     showSpinner()
     $.ajax({
         type: "POST",
-        url: "https://api.amadeus.com/v1/security/oauth2/token",
+        url: "https://test.api.amadeus.com/v1/security/oauth2/token",
         headers:{
             "Content-Type": "application/x-www-form-urlencoded",
         },
         data: {
             "grant_type": "client_credentials",
-            "client_id":"ZlNa8ALtEvqAK9GisfbhwVQXPtG948IQ",
-            "client_secret":"i9G2pT6GN8Ux7Hev"
+            "client_id":"g74uwdzCBnGRJAPXHD0qN4oFECb0ACTS",
+            "client_secret":"rHXwsbMdgjIDrQFK"
         },
         success: function(data) {
           var token=data.access_token
-          var url="https://api.amadeus.com/v2/shopping/flight-offers?originLocationCode="+origin.toUpperCase()+"&destinationLocationCode="+destination.toUpperCase()+"&departureDate="+departureDate+"&adults=1&nonStop=true&max="+max
+          var url="https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode="+origin.toUpperCase()+"&destinationLocationCode="+destination.toUpperCase()+"&departureDate="+departureDate+"&adults=1&nonStop=true&max="+max
           var xhr = new XMLHttpRequest();
             xhr.open("GET", url);
             xhr.onloadend = function() {
@@ -75,18 +75,18 @@ function searchHotel(city){
     showSpinner()
     $.ajax({
         type: "POST",
-        url: "https://api.amadeus.com/v1/security/oauth2/token",
+        url: "https://test.api.amadeus.com/v1/security/oauth2/token",
         headers:{
             "Content-Type": "application/x-www-form-urlencoded",
         },
         data: {
             "grant_type": "client_credentials",
-            "client_id":"ZlNa8ALtEvqAK9GisfbhwVQXPtG948IQ",
-            "client_secret":"i9G2pT6GN8Ux7Hev"
+            "client_id":"g74uwdzCBnGRJAPXHD0qN4oFECb0ACTS",
+            "client_secret":"rHXwsbMdgjIDrQFK"
         },
         success: function(data) {
           var token=data.access_token
-          var url = "https://api.amadeus.com/v2/shopping/hotel-offers?cityCode="+city;
+          var url = "https://test.api.amadeus.com/v2/shopping/hotel-offers?cityCode="+city;
           var xhr = new XMLHttpRequest();
             xhr.open("GET", url);
             xhr.setRequestHeader("Authorization", 'Bearer '+token);
