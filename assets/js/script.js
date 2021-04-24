@@ -29,8 +29,8 @@ function searchFlightOffers(origin,destination,max,departureDate){
         },
         data: {
             "grant_type": "client_credentials",
-            "client_id":"ZlNa8ALtEvqAK9GisfbhwVQXPtG948IQ",
-            "client_secret":"i9G2pT6GN8Ux7Hev"
+            "client_id":"",
+            "client_secret":""
         },
         success: function(data) {
           var token=data.access_token
@@ -81,8 +81,8 @@ function searchHotel(city){
         },
         data: {
             "grant_type": "client_credentials",
-            "client_id":"ZlNa8ALtEvqAK9GisfbhwVQXPtG948IQ",
-            "client_secret":"i9G2pT6GN8Ux7Hev"
+            "client_id":"",
+            "client_secret":""
         },
         success: function(data) {
           var token=data.access_token
