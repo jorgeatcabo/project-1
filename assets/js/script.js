@@ -6,100 +6,171 @@
 
 hideSpinner()
 //Adding click events to button for searching
-$(".city-button").click(function(){
-    var originCity = $(".origin-city").val();    
-    var destinationCity = $(".destination-city").val();  
-    var maxFlights= $(".max-flights").val();
-    var depDate= $(".depature-date").val();
-    var result=true
-    result=searchFlightOffers(originCity,destinationCity,maxFlights,depDate)
-    if (result){
-        searchHotel(destinationCity)
-    }
+$(".city-button").click(function () {
+    var originCity = $(".origin-city").val();
+    var destinationCity = $(".destination-city").val();
+    // var maxFlights= $(".max-flights").val();
+    var maxFlights = 10;
+    var depDate = $(".depature-date").val();
+    var originCityCode =  searchOriginCode(originCity);
+    var destCityCode = searchDestCode(destinationCity);
+    searchFlightOffers(originCityCode, destCityCode, maxFlights, depDate);
+    searchHotel(destCityCode);
 });
 
-
-function searchFlightOffers(origin,destination,max,departureDate){  
-    showSpinner()
+function searchOriginCode(originCity) {
+    // showSpinner()
     $.ajax({
         type: "POST",
         url: "https://test.api.amadeus.com/v1/security/oauth2/token",
-        headers:{
+        headers: {
             "Content-Type": "application/x-www-form-urlencoded",
         },
         data: {
             "grant_type": "client_credentials",
-            "client_id":"g74uwdzCBnGRJAPXHD0qN4oFECb0ACTS",
-            "client_secret":"rHXwsbMdgjIDrQFK"
+            "client_id": "g74uwdzCBnGRJAPXHD0qN4oFECb0ACTS",
+            "client_secret": "rHXwsbMdgjIDrQFK"
         },
-        success: function(data) {
-          var token=data.access_token
-          var url="https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode="+origin.toUpperCase()+"&destinationLocationCode="+destination.toUpperCase()+"&departureDate="+departureDate+"&adults=1&nonStop=true&max="+max
-          var xhr = new XMLHttpRequest();
+        success: function (data) {
+            var token = data.access_token
+            var url = "https://test.api.amadeus.com/v1/reference-data/locations?subType=CITY&keyword=" + originCity;
+            var xhr = new XMLHttpRequest();
             xhr.open("GET", url);
-            xhr.onloadend = function() {
-                if(xhr.status === 404 || xhr.status === 400){ 
-                    $("#modal-button-error").click()
-                     hideSpinner()
-                    throw new Error(url);
-                }
-            }  
-            xhr.setRequestHeader("Authorization", 'Bearer '+token);
+            xhr.setRequestHeader("Authorization", 'Bearer ' + token);
             xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4  && xhr.status==200) {                
-                    var flights = (JSON.parse(xhr.responseText));
-                    if (flights.data.length==0){
-                        $("#modal-button-not-found").click()
-                        hideSpinner()
-                        return false
-                    }
-                    var out=""
-                    for(a = 0; a < flights.data.length; a++) {
-                        out +=flights.data[a].itineraries[0].segments[0].departure.iataCode+" "+flights.data[a].itineraries[0].segments[0].departure.at+"-------->"+flights.data[a].itineraries[0].segments[0].arrival.iataCode+" "+ flights.data[a].itineraries[0].segments[0].arrival.at+'<br/>';
-                    }
-                     document.getElementById("origin-destination").innerHTML = origin.toUpperCase()+"-------->"+destination.toUpperCase()+" "+departureDate;
-                     document.getElementById("flights-content").innerHTML = out;  
-                    hideSpinner()
-                   
+                console.log (url);
+                if (xhr.readyState === 4) {
+                    var originCitySearch = (JSON.parse(xhr.responseText));
+                    console.log (originCitySearch);
+                    var originCityCode = originCitySearch.data[0].address.cityCode;
+                    console.log ("Origin: ", originCityCode);
+                //     hideSpinner()
                 }
-                
             };
             xhr.send();
         },
         dataType: "json"
-      });  
-      return true    
-} 
+    });
+}
 
-function searchHotel(city){  
-    showSpinner()
+function searchDestCode(destinationCity) {
+    // showSpinner()
     $.ajax({
         type: "POST",
         url: "https://test.api.amadeus.com/v1/security/oauth2/token",
-        headers:{
+        headers: {
             "Content-Type": "application/x-www-form-urlencoded",
         },
         data: {
             "grant_type": "client_credentials",
-            "client_id":"g74uwdzCBnGRJAPXHD0qN4oFECb0ACTS",
-            "client_secret":"rHXwsbMdgjIDrQFK"
+            "client_id": "g74uwdzCBnGRJAPXHD0qN4oFECb0ACTS",
+            "client_secret": "rHXwsbMdgjIDrQFK"
         },
-        success: function(data) {
-          var token=data.access_token
-          var url = "https://test.api.amadeus.com/v2/shopping/hotel-offers?cityCode="+city;
-          var xhr = new XMLHttpRequest();
+        success: function (data) {
+            var token = data.access_token
+            var url = "https://test.api.amadeus.com/v1/reference-data/locations?subType=CITY&keyword=" + destinationCity;
+            var xhr = new XMLHttpRequest();
             xhr.open("GET", url);
-            xhr.setRequestHeader("Authorization", 'Bearer '+token);
+            xhr.setRequestHeader("Authorization", 'Bearer ' + token);
             xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) {                
+                console.log (url);
+                if (xhr.readyState === 4) {
+                    var destCitySearch = (JSON.parse(xhr.responseText));
+                    console.log (destCitySearch);
+                    var destCityCode = destCitySearch.data[0].address.cityCode;
+                    console.log ("Destination: ", destCityCode);
+                //     hideSpinner()
+                }
+            };
+            xhr.send();
+        },
+        dataType: "json"
+    });
+}
+
+
+function searchFlightOffers(origin, destination, max, departureDate) {
+    showSpinner()
+    $.ajax({
+        type: "POST",
+        url: "https://test.api.amadeus.com/v1/security/oauth2/token",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        data: {
+            "grant_type": "client_credentials",
+            "client_id": "g74uwdzCBnGRJAPXHD0qN4oFECb0ACTS",
+            "client_secret": "rHXwsbMdgjIDrQFK"
+        },
+        success: function (data) {
+            var token = data.access_token
+            var url = "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=" + origin + "&destinationLocationCode=" + destination + "&departureDate=" + departureDate + "&adults=1&nonStop=true&max=" + max
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", url);
+            xhr.onloadend = function () {
+                if (xhr.status === 404 || xhr.status === 400) {
+                    $("#modal-button-error").click()
+                    hideSpinner()
+                    throw new Error(url);
+                }
+            }
+            xhr.setRequestHeader("Authorization", 'Bearer ' + token);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status == 200) {
+                    var flights = (JSON.parse(xhr.responseText));
+                    if (flights.data.length == 0) {
+                        $("#modal-button-not-found").click()
+                        hideSpinner()
+                        return false
+                    }
+                    var out = ""
+                    for (a = 0; a < flights.data.length; a++) {
+                        out += flights.data[a].itineraries[0].segments[0].departure.iataCode + " " + flights.data[a].itineraries[0].segments[0].departure.at + "-------->" + flights.data[a].itineraries[0].segments[0].arrival.iataCode + " " + flights.data[a].itineraries[0].segments[0].arrival.at + '<br/>';
+                    }
+                    document.getElementById("origin-destination").innerHTML = origin.toUpperCase() + "-------->" + destination.toUpperCase() + " " + departureDate;
+                    document.getElementById("flights-content").innerHTML = out;
+                    hideSpinner()
+
+                }
+
+            };
+            xhr.send();
+        },
+        dataType: "json"
+    });
+    console.log ("Flights finished");
+    return true
+}
+
+function searchHotel(city) {
+    showSpinner()
+    $.ajax({
+        type: "POST",
+        url: "https://test.api.amadeus.com/v1/security/oauth2/token",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        data: {
+            "grant_type": "client_credentials",
+            "client_id": "g74uwdzCBnGRJAPXHD0qN4oFECb0ACTS",
+            "client_secret": "rHXwsbMdgjIDrQFK"
+        },
+        success: function (data) {
+            var token = data.access_token
+            var url = "https://test.api.amadeus.com/v2/shopping/hotel-offers?cityCode=" + city;
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", url);
+            xhr.setRequestHeader("Authorization", 'Bearer ' + token);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
                     var hotels = (JSON.parse(xhr.responseText));
-                    var hotelContainer=document.getElementById("cards")
-                    hotelContainer.innerHTML=""
+                    var hotelContainer = document.getElementById("cards")
+                    hotelContainer.innerHTML = ""
                     $(hotelContainer).empty()
-                    var idHotel=""
-                    for(i = 0; i < hotels.data.length; i++) { 
+                    var idHotel = ""
+                    for (i = 0; i < hotels.data.length; i++) {
                         var card = document.createElement('div');
-                        var cardHeader=document.createElement('div');
+                        var cardHeader = document.createElement('div');
                         hotelContainer.append(card);
                         card.classList.add("card");
                         card.append(cardHeader);
@@ -116,21 +187,23 @@ function searchHotel(city){
                     hideSpinner()
                 }
             };
-            xhr.send();                        
+            xhr.send();
         },
         dataType: "json"
-      });      
-} 
+    });
+    console.log ("Hotel finished");
+    return true
+}
 
 function hideSpinner() {
     document.getElementById('spinner')
-            .style.display = 'none';
-} 
+        .style.display = 'none';
+}
 
 function showSpinner() {
     document.getElementById('spinner')
-            .style.display = 'block';
-} 
+        .style.display = 'block';
+}
 
 function isNumber(evt) {
     evt = (evt) ? evt : window.event;
@@ -140,4 +213,3 @@ function isNumber(evt) {
     }
     return true;
 }
-
