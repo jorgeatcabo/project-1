@@ -5,7 +5,7 @@ hideSpinner()
 $(".city-button").click(function(){
     var originCity = $(".origin-city").val();    
     var destinationCity = $(".destination-city").val();  
-    var maxFlights= $(".max-flights").val();
+    var maxFlights= 10
     var depDate= $(".depature-date").val();
     var result=true
     result=searchFlightOffers(originCity,destinationCity,maxFlights,depDate)
@@ -24,8 +24,8 @@ function searchFlightOffers(origin,destination,max,departureDate){
         },
         data: {
             "grant_type": "client_credentials",
-            "client_id":"",
-            "client_secret":""
+            "client_id":"ZlNa8ALtEvqAK9GisfbhwVQXPtG948IQ",
+            "client_secret":"i9G2pT6GN8Ux7Hev"
         },
         success: function(data) {
           var token=data.access_token
@@ -103,8 +103,8 @@ function searchHotel(city){
         },
         data: {
             "grant_type": "client_credentials",
-            "client_id":"",
-            "client_secret":""
+            "client_id":"ZlNa8ALtEvqAK9GisfbhwVQXPtG948IQ",
+            "client_secret":"i9G2pT6GN8Ux7Hev"
         },
         success: function(data) {
           var token=data.access_token
