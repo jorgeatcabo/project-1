@@ -6,7 +6,7 @@ Welcome vagabond to the Vagabundos App, the App that will help you search the fl
 
 ## Description
 
-We made this App because we want to provide users with an esasy an accesible solution while they are choosing theflights and accomodations for their next holidays.
+We made this App because we want to provide users with an esasy an accesible solution while they are choosing the flights and accomodations for their next holidays.
 
 They can search for hundreds of flights and hotels. Cheap or luxurious, whatever suits them best.
 
@@ -19,9 +19,12 @@ They can search for hundreds of flights and hotels. Cheap or luxurious, whatever
 
 ## Installation
 
-This project has been deployed to GitHub. To get this project up and running, you can follow the deployment link.
- 
+This project has been deployed to GitHub.
+https://github.com/jorgeatcabo/project-1
+
+ To get this project up and running, you can follow the deployment link.
 https://jorgeatcabo.github.io/project-1/
+
  
 ## Usage
 
@@ -31,9 +34,21 @@ Search for a fligth
 User can search for a flight and a hotel by:
 
 
-- Entering ythe origin and destination city
+- Entering the origin and destination city
+
+<img src="./assets/Images/1.- Interface.png">
+
 - Selecting the date they want to flight
+
+<img src="./assets/Images/2.- Search criteria.png">
+
 - Pressing the search button to get the flights and hotels available for the date they choosed.
+
+<img src="./assets/Images/3.- Results.png">
+
+- Video usage:
+
+<img src="./assets/Images/VagabundosApp.gif">
 
 ## Credits
 - Jorge Soto
@@ -42,6 +57,8 @@ User can search for a flight and a hotel by:
 - Adolfo de Moure
 
 ## License
+
+Foundation framework MIT license
 
 ## Features
 HTML Pages Index.html
@@ -52,5 +69,9 @@ JS scrip.js
 
 Script foundation 
 
-APIs: Amadeus
+APIs of Amadeus (test keys):
+
+- Flight offers
+- Hotel offers
+
 
