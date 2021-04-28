@@ -11,11 +11,9 @@
 </head>
 
 <body>
-  <div id="spinner" class="loader"></div>
 
   <div class="grid-y medium-grid-frame">
     <div class="hero-section header medium-cell-block-container">
-      <!-- <div class="hero-section cell shrink header medium-cell-block-container"> -->
       <div class="hero-section-text">
         <h1>Vagabundos App</h1>
         <h5>We travel not to escape life. But for life not to escape us.</h5>
@@ -24,12 +22,11 @@
     <div class="cell shrink header medium-cell-block-container">
       <div class="cell row small-2" id="airplane">
       <BR></BR>
-      <!-- </div> -->
       <div class="grid-x grid-padding-x">
-        <!-- <div class="cell medium-1">
-        </div> -->
-        <div class="cell medium-2">
-          <h5 class="header-color">Where you would like to go?</h5>
+        <div class="cell medium-1">
+        </div>
+        <div class="cell medium-2 text-right">
+          <h5 class="header-color">Search Now</h5>
         </div>
         <div class="cell medium-2">
           <input class="origin-city" type="text" placeholder="Type your origin city">
@@ -40,9 +37,7 @@
         <div class="cell medium-2">
           <input class="depature-date" type="date" placeholder="Departure date">
         </div>
-        <div class="cell medium-2">
-          <input class="max-flights" type="text" onkeypress="return isNumber(event)" placeholder="Max Flights">
-        </div>
+    
         <div class="cell medium-2">
           <button type="button" class="button primary expanded  city-button">Search!</button>
         </div>
@@ -50,27 +45,18 @@
     </div>
       <div class="cell medium-auto medium-cell-block-container ">
         <div class="grid-x grid-padding-x medium-cell-block-y">
-          <div class="cell small-2">
-            <!-- <h5>Search Flights</h5>
-            <input class="origin-city" style="text-transform: uppercase" type="text" placeholder="Origin City">
-            <input class="destination-city" style="text-transform: uppercase" type="text"
-              placeholder="Destination City">
-            <input class="depature-date" type="date" placeholder="Departure Date">
-            <input class="max-flights" type="text" onkeypress="return isNumber(event)" placeholder="Max Flights">
-            <button type="button" class="button primary expanded  city-button">Search</button> -->
+          <div id="search-results" class="cell small-2">
             <div style="width: 100%">
               <h5 class="header-color">Your Recent Searches</h5>
-              <div class="card-divider">
-                <button type="button" class="button primary expanded">City name</button>
-              </div>
             </div>
           </div>
 
-          <div class="cell auto medium-cell-block-y">
+          <div class="cell auto medium-cell-block-y"  style= "height: 100px; overflow-y: scroll;" >
             <div class="card" style="width: 100%;">
               <div id="origin-destination" class="card-divider">
               </div>
               <div class="card-section">
+                <div id="spinner" class="loader"></div>
                 <ul id="flights" class="accordion" data-accordion>
                   <li class="accordion-item" data-accordion-item>
                     <a href="#" class="accordion-title">Flights</a>
@@ -84,11 +70,6 @@
               </div>
             </div>
           </div>
-
-
-
-
-
         </div>
       </div>
     </div>
